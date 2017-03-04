@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Google Calendar API Android Quickstart">
+            android:label="ScheduleOptimizer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,8 +21,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TaskInput"
-            android:label="@string/inputTasksText"
+            android:name=".EventInput"
+            android:label="@string/inputEventsText"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -32,11 +32,11 @@
         <activity
             android:name=".AddEvent"
             android:label="@string/addEventText"
-            android:parentActivityName=".TaskInput"
+            android:parentActivityName=".EventInput"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.quickstart.TaskInput" />
+                android:value="com.example.quickstart.EventInput" />
         </activity>
     </application>
 

@@ -49,7 +49,7 @@ public class MainActivity extends Activity
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
     private Button mCallApiButton;
-    private Button mTaskInputButton;
+    private Button mEventInputButton;
     private Button mUpdateCalendarButton;
     ProgressDialog mProgress;
 
@@ -57,6 +57,8 @@ public class MainActivity extends Activity
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
+
+    static final String PREFERENCES = "pref";
 
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
@@ -81,8 +83,8 @@ public class MainActivity extends Activity
             }
         });
 
-        mTaskInputButton = (Button) findViewById(R.id.inputTasksButton);
-        mTaskInputButton.setOnClickListener(new View.OnClickListener() {
+        mEventInputButton = (Button) findViewById(R.id.inputTasksButton);
+        mEventInputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openTasks(v);
@@ -109,7 +111,7 @@ public class MainActivity extends Activity
 
     public void openTasks(View view)
     {
-        Intent intent = new Intent(this, TaskInput.class);
+        Intent intent = new Intent(this, EventInput.class);
         startActivity(intent);
     }
 
