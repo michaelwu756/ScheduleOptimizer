@@ -33,9 +33,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -52,6 +50,7 @@ public class MainActivity extends Activity
     private TextView mOutputText;
     private Button mCallApiButton;
     private Button mTaskInputButton;
+    private Button mUpdateCalendarButton;
     ProgressDialog mProgress;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -59,8 +58,6 @@ public class MainActivity extends Activity
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
-    private static final String BUTTON_TEXT = "Call Google Calendar API";
-    private static final String INPUT_BUTTON_TEXT = "Input Tasks";
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
 
@@ -71,20 +68,9 @@ public class MainActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout activityLayout = new LinearLayout(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        activityLayout.setLayoutParams(lp);
-        activityLayout.setOrientation(LinearLayout.VERTICAL);
-        activityLayout.setPadding(16, 16, 16, 16);
+        setContentView(R.layout.activity_main_activity);
 
-        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        mCallApiButton = new Button(this);
-        mCallApiButton.setText(BUTTON_TEXT);
+        mCallApiButton = (Button) findViewById(R.id.callApiButton);
         mCallApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,10 +80,8 @@ public class MainActivity extends Activity
                 mCallApiButton.setEnabled(true);
             }
         });
-        activityLayout.addView(mCallApiButton);
 
-        mTaskInputButton = new Button(this);
-        mTaskInputButton.setText(INPUT_BUTTON_TEXT);
+        mTaskInputButton = (Button) findViewById(R.id.inputTasksButton);
         mTaskInputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,21 +89,17 @@ public class MainActivity extends Activity
             }
         });
 
-        activityLayout.addView(mTaskInputButton);
+        mUpdateCalendarButton = (Button) findViewById(R.id.updateCalendarButton);
 
-        mOutputText = new TextView(this);
-        mOutputText.setLayoutParams(tlp);
+        mOutputText = (TextView) findViewById(R.id.textView);
         mOutputText.setPadding(16, 16, 16, 16);
         mOutputText.setVerticalScrollBarEnabled(true);
         mOutputText.setMovementMethod(new ScrollingMovementMethod());
         mOutputText.setText(
-                "Click the \'" + BUTTON_TEXT +"\' button to test the API.");
-        activityLayout.addView(mOutputText);
+                "Click the \'" + mCallApiButton.getText() +"\' button to test the API.");
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Google Calendar API ...");
-
-        setContentView(activityLayout);
 
         // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(
@@ -129,7 +109,7 @@ public class MainActivity extends Activity
 
     public void openTasks(View view)
     {
-        Intent intent = new Intent(this, taskInput.class);
+        Intent intent = new Intent(this, TaskInput.class);
         startActivity(intent);
     }
 

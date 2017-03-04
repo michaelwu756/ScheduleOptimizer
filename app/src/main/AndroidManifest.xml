@@ -21,9 +21,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".taskInput"
-            android:label="@string/title_activity_task_input"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".TaskInput"
+            android:label="@string/inputTasksText"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.quickstart.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AddEvent"
+            android:label="@string/addEventText"
+            android:parentActivityName=".TaskInput"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.quickstart.TaskInput" />
+        </activity>
     </application>
 
 </manifest>

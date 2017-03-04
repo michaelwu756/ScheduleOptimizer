@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">quickstart</string>
-    <string name="title_activity_task_input">Input Events</string>
+    <string name="inputTasksText">Input Tasks</string>
+    <string name="callApiButtonText">Call Google Calendar API</string>
+    <string name="updateCalendarButtonText">Update Calendar</string>
+    <string name="addEventText">Add Event</string>
+    <string name="saveButton">Save</string>
+    <string name="newEntryName">Name</string>
+    <string name="newEntryNumber"># of Hours</string>
+    <string name="addButton">Add</string>
 </resources>
