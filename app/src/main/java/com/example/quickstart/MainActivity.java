@@ -51,6 +51,7 @@ public class MainActivity extends Activity
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
     private Button mCallApiButton;
+    private Button mTaskInputButton;
     ProgressDialog mProgress;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -59,6 +60,7 @@ public class MainActivity extends Activity
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
 
     private static final String BUTTON_TEXT = "Call Google Calendar API";
+    private static final String INPUT_BUTTON_TEXT = "Input Tasks";
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
 
@@ -94,6 +96,17 @@ public class MainActivity extends Activity
         });
         activityLayout.addView(mCallApiButton);
 
+        mTaskInputButton = new Button(this);
+        mTaskInputButton.setText(INPUT_BUTTON_TEXT);
+        mTaskInputButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTasks(v);
+            }
+        });
+
+        activityLayout.addView(mTaskInputButton);
+
         mOutputText = new TextView(this);
         mOutputText.setLayoutParams(tlp);
         mOutputText.setPadding(16, 16, 16, 16);
@@ -114,7 +127,11 @@ public class MainActivity extends Activity
                 .setBackOff(new ExponentialBackOff());
     }
 
-
+    public void openTasks(View view)
+    {
+        Intent intent = new Intent(this, taskInput.class);
+        startActivity(intent);
+    }
 
     /**
      * Attempt to call the API, after verifying that all the preconditions are
