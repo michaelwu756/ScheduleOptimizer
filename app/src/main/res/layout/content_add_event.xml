@@ -25,6 +25,41 @@
         android:inputType="number"
         android:hint="@string/newEntryNumber"/>
 
+    <CheckBox
+        android:id="@+id/sundayCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sunday" />
+    <CheckBox
+        android:id="@+id/mondayCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Monday" />
+    <CheckBox
+        android:id="@+id/tuesdayCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tuesday" />
+    <CheckBox
+        android:id="@+id/wednesdayCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Wednesday" />
+    <CheckBox
+        android:id="@+id/thursdayCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thursday" />
+    <CheckBox
+        android:id="@+id/fridayCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Friday" />
+    <CheckBox
+        android:id="@+id/saturdayCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Saturday" />
     <Button
         android:id="@+id/addButton"
         android:layout_width="match_parent"

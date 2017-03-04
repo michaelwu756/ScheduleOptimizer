@@ -24,6 +24,7 @@ public class EventInput extends AppCompatActivity implements AdapterView.OnItemC
     static final int REQUEST_NEW_EVENT = 1;
     static final String ADD_NAME = "Name";
     static final String ADD_NUMBER = "Number";
+    static final String ADD_DAYS = "Days";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class EventInput extends AppCompatActivity implements AdapterView.OnItemC
             CalendarActivity a = listAdapter.getItem(i);
             e.putString("item"+Integer.toString(i)+"name", a.getName());
             e.putInt("item"+Integer.toString(i)+"hours", a.getHours());
+            e.putString("item"+Integer.toString(i)+"days", a.getDays());
         }
         e.commit();
         Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
@@ -85,7 +87,8 @@ public class EventInput extends AppCompatActivity implements AdapterView.OnItemC
         for(int i= 0; i<prefs.getInt("numEntries",0); i++)
         {
             activityList.add(new CalendarActivity(prefs.getString("item"+Integer.toString(i)+"name", null),
-                    prefs.getInt("item"+Integer.toString(i)+"hours", 0)));
+                    prefs.getInt("item"+Integer.toString(i)+"hours", 0),
+                    prefs.getString("item"+Integer.toString(i)+"days", null)));
         }
         return activityList;
     }
@@ -93,7 +96,10 @@ public class EventInput extends AppCompatActivity implements AdapterView.OnItemC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_NEW_EVENT && resultCode == RESULT_OK && data != null) {
-            listAdapter.add(new CalendarActivity(data.getStringExtra(ADD_NAME), data.getIntExtra(ADD_NUMBER,1)));
+            if(!data.getStringExtra(ADD_NAME).trim().isEmpty())
+                listAdapter.add(new CalendarActivity(data.getStringExtra(ADD_NAME),
+                        data.getIntExtra(ADD_NUMBER,1),
+                        data.getStringExtra(ADD_DAYS)));
         }
     }
 

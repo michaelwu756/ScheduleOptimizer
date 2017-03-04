@@ -7,11 +7,13 @@ package com.example.quickstart;
 public class CalendarActivity {
     private String name;
     private int hours;
+    private String days;
 
-    public CalendarActivity(String n, int h)
+    public CalendarActivity(String n, int h, String d)
     {
         name=n;
         hours=h;
+        days=d;
     }
 
     public String getName()
@@ -24,8 +26,13 @@ public class CalendarActivity {
         return hours;
     }
 
+    public String getDays()
+    {
+        return days;
+    }
+
     public String toString()
     {
-        return getName()+"\nHours: "+Integer.toString(getHours());
+        return getName()+"\nHours: "+Integer.toString(getHours())+"\nSMTWTFS: "+getDays();
     }
 }
