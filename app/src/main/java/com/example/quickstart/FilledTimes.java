@@ -5,21 +5,21 @@ package com.example.quickstart;
  */
 
 public class FilledTimes {
-    private String startTime;
-    private String endTime;
+    private long startTime;
+    private long endTime;
 
-    public FilledTimes(String s, String e)
+    public FilledTimes(long s, long e)
     {
         startTime=s;
         endTime=e;
     }
 
-    public String getStart()
+    public long getStart()
     {
         return startTime;
     }
 
-    public String getEnd()
+    public long getEnd()
     {
         return endTime;
     }
