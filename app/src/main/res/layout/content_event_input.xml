@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.quickstart.EventInput"
+    tools:context="com.cheesyfluff.scheduleoptimizer.EventInput"
     tools:showIn="@layout/activity_event_input"
     android:orientation="vertical">
     <ListView

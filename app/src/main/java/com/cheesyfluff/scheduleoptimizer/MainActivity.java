@@ -1,4 +1,4 @@
-package com.example.quickstart;
+package com.cheesyfluff.scheduleoptimizer;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -16,7 +16,6 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.client.util.DateTime;
 
 import com.google.api.services.calendar.model.*;
-import com.google.api.services.calendar.model.Calendar;
 
 import android.Manifest;
 import android.accounts.AccountManager;
@@ -38,7 +37,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -177,18 +175,18 @@ public class MainActivity extends Activity
             return new ArrayList<>();
         boolean occupiedTime[] = new boolean[(int)TimeUnit.MILLISECONDS.toHours(endDay-startDay)];
         for(int i=0; i<=(int)TimeUnit.MILLISECONDS.toDays(endDay-startDay);i++) {
-            fTimes.add(new FilledTimes(getDayFromTodayInMs(i), getDayFromTodayInMs(i) + startTime));
-            fTimes.add(new FilledTimes(getDayFromTodayInMs(i) + endTime, getDayFromTodayInMs(i + 1)));
+            fTimes.add(new FilledTimes(getDayFromTodayInMs(i), getDayFromTodayInMs(i) + startTime-1));
+            fTimes.add(new FilledTimes(getDayFromTodayInMs(i) + endTime, getDayFromTodayInMs(i + 1)-1));
         }
         for(FilledTimes f : fTimes)
         {
             int beginIndex = (int)TimeUnit.MILLISECONDS.toHours(f.getStart()-startDay);
             if(beginIndex<0)
                 beginIndex=0;
-            int endIndex = (int)Math.ceil((double)TimeUnit.MILLISECONDS.toHours(f.getEnd()-startDay));
-            if(endIndex>occupiedTime.length-1)
-                endIndex=occupiedTime.length-1;
-            for(int i =beginIndex; i<=endIndex; i++)
+            int endIndex = (int)Math.ceil((double)TimeUnit.MILLISECONDS.toHours(f.getEnd()-startDay))+1;
+            if(endIndex>occupiedTime.length)
+                endIndex=occupiedTime.length;
+            for(int i =beginIndex; i<endIndex; i++)
             {
                 occupiedTime[i]=true;
             }
