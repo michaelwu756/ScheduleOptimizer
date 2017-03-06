@@ -54,7 +54,7 @@ public class EventInput extends AppCompatActivity implements AdapterView.OnItemC
         mainListView = (ListView) findViewById(R.id.mainListView);
         mainListView.setOnItemClickListener(this);
         ArrayList<CalendarActivity> eventList=getSavedActivities();
-        listAdapter = new ArrayAdapter<CalendarActivity>(this, R.layout.list_entry_layout, eventList);
+        listAdapter = new ArrayAdapter<>(this, R.layout.list_entry_layout, eventList);
         mainListView.setAdapter(listAdapter);
     }
 
@@ -81,7 +81,7 @@ public class EventInput extends AppCompatActivity implements AdapterView.OnItemC
 
     private ArrayList<CalendarActivity> getSavedActivities()
     {
-        ArrayList<CalendarActivity> activityList = new ArrayList<CalendarActivity>();
+        ArrayList<CalendarActivity> activityList = new ArrayList<>();
         SharedPreferences prefs = getSharedPreferences(MainActivity.PREFERENCES, MODE_PRIVATE);
         for(int i= 0; i<prefs.getInt("numEntries",0); i++)
         {

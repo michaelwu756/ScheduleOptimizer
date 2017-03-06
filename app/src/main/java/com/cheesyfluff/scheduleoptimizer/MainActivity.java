@@ -156,7 +156,7 @@ public class MainActivity extends Activity
 
     private ArrayList<CalendarActivity> getSavedActivities()
     {
-        ArrayList<CalendarActivity> activityList = new ArrayList<CalendarActivity>();
+        ArrayList<CalendarActivity> activityList = new ArrayList<>();
         SharedPreferences prefs = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
         for(int i= 0; i<prefs.getInt("numEntries",0); i++)
         {
@@ -228,7 +228,6 @@ public class MainActivity extends Activity
             }
             i++;
         }
-        //list.add(new CalendarEvent("lifting", getDayFromTodayInMs(0), getDayFromTodayInMs(0)+getTimeFromStartOfDayInMs(1)));
         return list;
     }
 
@@ -236,7 +235,6 @@ public class MainActivity extends Activity
     {
         startQueryTime = getDayFromTodayInMs(START_DAYS_AHEAD);
         endQueryTime = getDayFromTodayInMs(END_DAYS_AHEAD);
-        getResultsFromApi();
         addCalendarEvents(generateCalendarEvents(startQueryTime,
                 endQueryTime,
                 getTimeFromStartOfDayInMs(WAKEUP_TIME),
@@ -245,6 +243,7 @@ public class MainActivity extends Activity
                 filledTimes
         ));
     }
+
     private void addCalendarEvents(ArrayList<CalendarEvent> list)
     {
         if (! isGooglePlayServicesAvailable()) {

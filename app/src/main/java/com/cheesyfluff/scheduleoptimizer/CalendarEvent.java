@@ -1,9 +1,5 @@
 package com.cheesyfluff.scheduleoptimizer;
 
-/**
- * Created by chees_000 on 3/4/2017.
- */
-
 public class CalendarEvent {
     private String name;
     private long startTime;
