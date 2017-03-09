@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -149,11 +150,6 @@ public class MainActivity extends Activity
         return cal.getTimeInMillis()+TimeUnit.DAYS.toMillis(day);
     }
 
-    private long getTimeFromStartOfDayInMs(int hours)
-    {
-        return TimeUnit.HOURS.toMillis(hours);
-    }
-
     private ArrayList<CalendarActivity> getSavedActivities()
     {
         ArrayList<CalendarActivity> activityList = new ArrayList<>();
@@ -174,19 +170,20 @@ public class MainActivity extends Activity
         if(calendarActivites==null || calendarActivites.size()==0)
             return new ArrayList<>();
         boolean occupiedTime[] = new boolean[(int)TimeUnit.MILLISECONDS.toHours(endDay-startDay)];
-        for(int i=0; i<=(int)TimeUnit.MILLISECONDS.toDays(endDay-startDay);i++) {
-            fTimes.add(new FilledTimes(getDayFromTodayInMs(i), getDayFromTodayInMs(i) + startTime-1));
-            fTimes.add(new FilledTimes(getDayFromTodayInMs(i) + endTime, getDayFromTodayInMs(i + 1)-1));
+        for(int i=0; i<(int)TimeUnit.MILLISECONDS.toDays(endDay-startDay);i++) {
+            long d = startDay+TimeUnit.DAYS.toMillis(i);
+            fTimes.add(new FilledTimes(d, d + startTime));
+            fTimes.add(new FilledTimes(d + endTime, d+TimeUnit.DAYS.toMillis(1)));
         }
         for(FilledTimes f : fTimes)
         {
             int beginIndex = (int)TimeUnit.MILLISECONDS.toHours(f.getStart()-startDay);
             if(beginIndex<0)
                 beginIndex=0;
-            int endIndex = (int)Math.ceil((double)TimeUnit.MILLISECONDS.toHours(f.getEnd()-startDay))+1;
+            int endIndex = (int)TimeUnit.MILLISECONDS.toHours(f.getEnd()-1-startDay)+1;
             if(endIndex>occupiedTime.length)
                 endIndex=occupiedTime.length;
-            for(int i =beginIndex; i<endIndex; i++)
+            for(int i=beginIndex; i<endIndex; i++)
             {
                 occupiedTime[i]=true;
             }
@@ -201,17 +198,17 @@ public class MainActivity extends Activity
             {
                 if (hoursRemaining > 0)
                 {
-                    long start = startDay+getTimeFromStartOfDayInMs(i);
+                    long start = startDay+ TimeUnit.HOURS.toMillis(i);
                     if(list.size()>0 && list.get(list.size()-1).getName()
                             .equals(calendarActivites.get(arrayListIndex).getName())
-                        && startDay+getTimeFromStartOfDayInMs(i)==list.get(list.size()-1).getEndTime())
+                        && startDay+TimeUnit.HOURS.toMillis(i)==list.get(list.size()-1).getEndTime())
                     {
                         start = list.get(list.size()-1).getStartTime();
                         list.remove(list.size()-1);
                     }
                     list.add(new CalendarEvent(calendarActivites.get(arrayListIndex).getName(),
                         start,
-                        startDay+getTimeFromStartOfDayInMs(i+1)));
+                        startDay+TimeUnit.HOURS.toMillis(i+1)));
                     hoursRemaining--;
                 }
                 else if (arrayListIndex<calendarActivites.size()-1)
@@ -219,8 +216,8 @@ public class MainActivity extends Activity
                     arrayListIndex++;
                     hoursRemaining=calendarActivites.get(arrayListIndex).getHours();
                     list.add(new CalendarEvent(calendarActivites.get(arrayListIndex).getName(),
-                            startDay+getTimeFromStartOfDayInMs(i),
-                            startDay+getTimeFromStartOfDayInMs(i+1)));
+                            startDay+TimeUnit.HOURS.toMillis(i),
+                            startDay+TimeUnit.HOURS.toMillis(i+1)));
                     hoursRemaining--;
                 }
                 else
@@ -237,8 +234,8 @@ public class MainActivity extends Activity
         endQueryTime = getDayFromTodayInMs(END_DAYS_AHEAD);
         addCalendarEvents(generateCalendarEvents(startQueryTime,
                 endQueryTime,
-                getTimeFromStartOfDayInMs(WAKEUP_TIME),
-                getTimeFromStartOfDayInMs(SLEEP_TIME),
+                TimeUnit.HOURS.toMillis(WAKEUP_TIME),
+                TimeUnit.HOURS.toMillis(SLEEP_TIME),
                 getSavedActivities(),
                 filledTimes
         ));
