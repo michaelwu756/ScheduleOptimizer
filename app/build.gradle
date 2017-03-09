@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'client'
+            keyPassword 'noobsrules'
+            storeFile file('C:/Users/chees_000/.android/clientkeystore')
+            storePassword 'noobsrules'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
-
     defaultConfig {
         applicationId "com.cheesyfluff.scheduleoptimizer"
         minSdkVersion 16
@@ -24,14 +31,13 @@ android {
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile('com.google.api-client:google-api-client-android:1.22.0') {
         exclude group: 'org.apache.httpcomponents'
     }
     compile('com.google.apis:google-api-services-calendar:v3-rev236-1.22.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.google.android.gms:play-services-auth:10.0.1'
     compile 'pub.devrel:easypermissions:0.2.1'
